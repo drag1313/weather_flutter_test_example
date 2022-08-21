@@ -16,12 +16,14 @@ class ScreenThree extends StatelessWidget {
   Widget build(BuildContext context) {
     final WeatherBloc bloc = context.read<WeatherBloc>();
     String cityName = controller.text;
+    // получаем погоду на ближайшие 5 дней с меткой в 3 часа
     final weather = fetchCityFiveDaysWeather(cityName);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
+          //кнопка назад
           onPressed: () {
             bloc.add(MyInitialEvent());
           },
@@ -30,6 +32,8 @@ class ScreenThree extends StatelessWidget {
         title: const Text('Погода на три дня'),
         titleSpacing: 20,
       ),
+
+      //отображаем погоду на следующие три дня
       body: FutureBuilder<CityWeatherFiveDays>(
           future: weather,
           builder: (context, snapshot) {
@@ -37,7 +41,7 @@ class ScreenThree extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: ListView.builder(
-                    itemCount: 3, // weather.data?.length,
+                    itemCount: 3,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 25),
@@ -46,9 +50,9 @@ class ScreenThree extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Text('Дата:'),
-                              Text((snapshot
-                                      .data!.list[checkLabel(index)].dtTxt)
-                                  .toString()), //'${snapshot.data!.main.temp}C'
+                              Text(
+                                  (snapshot.data!.list[checkLabel(index)].dtTxt)
+                                      .toString()),
                             ],
                           ),
                           Row(
@@ -56,7 +60,7 @@ class ScreenThree extends StatelessWidget {
                             children: [
                               const Text('Температура воздуха:'),
                               Text(
-                                  '${snapshot.data!.list[checkLabel(index)].main.tempMax} С'), //'${snapshot.data!.main.temp}C'
+                                  '${snapshot.data!.list[checkLabel(index)].main.tempMax} С'),
                             ],
                           ),
                           Row(
@@ -72,7 +76,7 @@ class ScreenThree extends StatelessWidget {
                             children: [
                               const Text('Влажность:'),
                               Text(
-                                  '${snapshot.data!.list[checkLabel(index)].main.humidity} %'), //'${snapshot.data!.main.humidity}%'
+                                  '${snapshot.data!.list[checkLabel(index)].main.humidity} %'),
                             ],
                           ),
                         ]),
@@ -86,6 +90,7 @@ class ScreenThree extends StatelessWidget {
   }
 }
 
+//метод для отображения погоды в разные дни, в дне 8 меток, добавляет к индексу 8 чтобы показать следующий элемент другого дня
 int checkLabel(int index) {
   int label = 8;
   switch (index) {

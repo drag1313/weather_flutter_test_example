@@ -1,10 +1,6 @@
-// To parse this JSON data, do
-//
-//     final cityWeatherFiveDays = cityWeatherFiveDaysFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
+////сущность для отображения погоды на 5 дней с метками каждые три часа из запроса по названию города
 class CityWeatherFiveDays {
   CityWeatherFiveDays({
     required this.cod,

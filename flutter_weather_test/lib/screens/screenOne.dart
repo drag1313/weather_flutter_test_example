@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_weather_test/bloc/weatherBloc.dart';
 import 'package:flutter_weather_test/bloc/weatherEvent.dart';
-import 'package:flutter_weather_test/screens/screenThree.dart';
 
 final TextEditingController contentController = TextEditingController();
 
@@ -17,14 +16,8 @@ final controller = TextEditingController();
 late String cityName;
 
 class _ScreenOneState extends State<ScreenOne> {
-  @override
-  /*
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-*/
   _handleText() {
+    //считываем текст введенный пользователем и сохраняем в переменную
     cityName = controller.text;
   }
 
@@ -44,6 +37,7 @@ class _ScreenOneState extends State<ScreenOne> {
             SizedBox(
               height: 70,
               width: 200,
+              //форма ввода названия города
               child: TextFormField(
                 controller: controller,
                 maxLines: null,
@@ -61,11 +55,10 @@ class _ScreenOneState extends State<ScreenOne> {
             SizedBox(
               height: 50,
               width: 200,
+              //кнопка перехода на экран2
               child: OutlinedButton(
                   child: const Text('Подтвердить'),
                   onPressed: () {
-                    fetchCityWeather(controller.text);
-
                     bloc.add(ScreenTwoEvent());
                   }),
             )

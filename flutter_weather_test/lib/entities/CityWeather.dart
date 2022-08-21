@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+//сущность для отображения погоды из запроса по названию города
+
 class CityWeather {
   CityWeather({
     required this.coord,

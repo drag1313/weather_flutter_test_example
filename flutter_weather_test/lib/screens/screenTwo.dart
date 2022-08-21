@@ -12,18 +12,20 @@ class ScreenTwo extends StatelessWidget {
   Widget build(BuildContext context) {
     final WeatherBloc bloc = context.read<WeatherBloc>();
     String cityName = controller.text;
-
+    //получаем погоду по названию города
     final weather = fetchCityWeather(cityName);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
+          //кнопка назад
           onPressed: () {
             bloc.add(MyInitialEvent());
           },
         ),
         actions: [
+          //кнопка перехода на экран3
           IconButton(
               onPressed: () {
                 bloc.add(ScreenThreeEvent());
@@ -34,14 +36,15 @@ class ScreenTwo extends StatelessWidget {
         title: const Text('Погода'),
         titleSpacing: 80,
       ),
+      // отображаем данные о погоде
       body: FutureBuilder<CityWeather>(
           future: weather,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Column(mainAxisAlignment: MainAxisAlignment.center,
-                  //crossAxisAlignment: CrossAxisAlignment.center,
+              return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(cityName), //?? 'London'
+                    Text(cityName),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -53,7 +56,7 @@ class ScreenTwo extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text('Скорость ветра'),
-                        Text('${snapshot.data!.wind.speed}Км/ч'),
+                        Text('${snapshot.data!.wind.speed}м/с'),
                       ],
                     ),
                     Row(
